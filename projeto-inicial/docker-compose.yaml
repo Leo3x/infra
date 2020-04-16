@@ -1,0 +1,41 @@
+version: "3.1"
+
+services:
+  drupal:
+    image: drupal:8-apache
+    ports:
+      - 8877:80
+    volumes:
+      - /var/www/html/modules
+      - /var/www/html/profiles
+      - /var/www/html/themes
+      - /var/www/html/sites
+      - /var/www/html/
+    restart: always
+    networks:
+      rede:
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+    ports:
+      - 5431:5431
+    networks:
+      rede:
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8081
+    networks:
+      rede:
+  # postgres:
+  #   image: postgres:10
+  #   environment:
+  #     POSTGRES_PASSWORD: example
+  #   restart: always
+networks:
+  rede:
